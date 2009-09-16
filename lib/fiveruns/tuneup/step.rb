@@ -88,12 +88,12 @@ module Fiveruns
 
       def fill(percentages)
         returning percentages do
+          percentages[:other] ||= 0
           unless leaf?
             if disparity > 0
               percentages[layer] += disparity / self.time
             end
           end
-          percentages[:other] ||= 0
           total = percentages.values.sum
           if total < 0.999
             percentages[:other] += 1.0 - total
