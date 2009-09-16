@@ -10,7 +10,6 @@ module Fiveruns
             
     class << self
       
-      include Fiveruns::Tuneup::Urls
       include Fiveruns::Tuneup::AssetTags
       include Fiveruns::Tuneup::Runs
       include Fiveruns::Tuneup::Instrumentation::Utilities
@@ -96,8 +95,6 @@ module Fiveruns
           if configuration.instrument?
             yield
             install_instrumentation
-            log :debug, "Using collector at #{collector_url}"
-            log :debug, "Using frontend at #{frontend_url}"
             log :info, "Started."
           else
             log :warn, "Not configured to run in #{RAILS_ENV} environment, aborting."

@@ -150,10 +150,6 @@ module TuneupHelper #:nodoc:
     end
   end
   
-  def tuneup_open_run(token)
-    %[window.open("#{Fiveruns::Tuneup.frontend_url}/runs/#{token}", 'fiveruns_tuneup');]
-  end
-  
   def tuneup_reload_panel
     update_page do |page|
       page << "$('tuneup-flash').removeClassName('tuneup-show');"
