@@ -5,7 +5,6 @@ Fiveruns::Tuneup.start do
       
   Dispatcher.to_prepare :tuneup_controller_filters do
     TuneupController.filter_chain.clear
-    TuneupController.before_filter :find_config, :except => :index
   end
   [ActionController::Base, ActiveRecord::Base, ActionView::Base].each do |target|
     target.extend Fiveruns::Tuneup::CustomMethods

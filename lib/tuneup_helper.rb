@@ -2,14 +2,6 @@ module TuneupHelper #:nodoc:
   
   include BumpsparkHelper
 
-  def tuneup_signin_url
-    "#{Fiveruns::Tuneup.collector_url}/users"
-  end
-  
-  def tuneup_signup_url
-    "#{Fiveruns::Tuneup.frontend_url}/signup"
-  end
-  
   def tuneup_collection_link
     state = tuneup_collecting? ? :off : :on
     %|<a onclick="new TuneUpSandbox.Ajax.Request('/tuneup/#{state}', {asynchronous:true, evalScripts:true}); return false;" href="#">Turn #{state.to_s.titleize}</a>|
@@ -67,21 +59,13 @@ module TuneupHelper #:nodoc:
     link << additional_step_links(step)
   end
   
-  def link_to_upload
-    if @config.state == :registered
-      %|<a onclick="new TuneUpSandbox.Ajax.Request('/tuneup/upload?uri=#{CGI.escape(session['fiveruns_tuneup_last_uri'])}', {asynchronous:true, evalScripts:true, onComplete:function(request){ TuneUp.Spinner.stop(); TuneUpSandbox.$('tuneup-top').show();}, onLoading:function(request){TuneUpSandbox.$('tuneup-top').hide(); TuneUp.Spinner.start()}}); return false;" id="tuneup-save-link" href="#">Share this Run</a>|
-    else
-      %|<a onclick="new TuneUpSandbox.Ajax.Request('/tuneup/register', {asynchronous:true, evalScripts:true}); return false;" id="tuneup-save-link" href="#">Login to Share this Run</a>|
-    end
-  end
-  
   def link_to_show
     %|<a id="tuneup-back-to-run-link" onclick="#{redisplay_last_run} return false;" href="#">&lt;&lt;&lt; Back to Run</a>|
   end
   
   def redisplay_last_run(namespaced=true)
     namespace_js = lambda { |fun| namespaced ? "TuneUpSandbox.#{fun}" : fun }
-    "#{namespace_js['$']}('tuneup-panel').show(); #{namespace_js['$']}('tuneup-signin-form').remove();"
+    "#{namespace_js['$']}('tuneup-panel').show();"
   end
 
   
