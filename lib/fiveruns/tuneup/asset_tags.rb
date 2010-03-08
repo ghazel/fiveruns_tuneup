@@ -15,7 +15,8 @@ module Fiveruns
           <!-- END FIVERUNS TUNEUP ASSETS -->
           )
           add_content_length(response, insertion.size)
-          response.body.replace(before << insertion << '</head>' << after)
+          body = [before, insertion, '</head>', after].join('').html_safe!
+          response.body.replace(body)
           log :error, "Inserted asset tags"
         else
           log :error, "Could not find closing </head> tag for insertion"

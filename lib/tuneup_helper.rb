@@ -4,7 +4,7 @@ module TuneupHelper #:nodoc:
 
   def tuneup_collection_link
     state = tuneup_collecting? ? :off : :on
-    %|<a onclick="new TuneUpSandbox.Ajax.Request('/tuneup/#{state}', {asynchronous:true, evalScripts:true}); return false;" href="#">Turn #{state.to_s.titleize}</a>|
+    %|<a onclick="new TuneUpSandbox.Ajax.Request('/tuneup/#{state}', {asynchronous:true, evalScripts:true}); return false;" href="#">Turn #{state.to_s.titleize}</a>|.html_safe!
   end
   
   def tuneup_recording?
@@ -60,7 +60,7 @@ module TuneupHelper #:nodoc:
   end
   
   def link_to_show
-    %|<a id="tuneup-back-to-run-link" onclick="#{redisplay_last_run} return false;" href="#">&lt;&lt;&lt; Back to Run</a>|
+    %|<a id="tuneup-back-to-run-link" onclick="#{redisplay_last_run} return false;" href="#">&lt;&lt;&lt; Back to Run</a>|.html_safe!
   end
   
   def redisplay_last_run(namespaced=true)
@@ -73,7 +73,7 @@ module TuneupHelper #:nodoc:
     returning '' do |text|
       text << sql_link(step) if step.sql
       text << schema_link(step) if step.table_name
-    end
+    end.html_safe!
   end
   
   def schema_link(step)
